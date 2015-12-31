@@ -4,6 +4,7 @@ return array(
         'factories' => array(
             'anthos\\V1\\Rest\\Plants\\PlantsResource' => 'anthos\\V1\\Rest\\Plants\\PlantsResourceFactory',
             'anthos\\V1\\Rest\\Definitions\\DefinitionsResource' => 'anthos\\V1\\Rest\\Definitions\\DefinitionsResourceFactory',
+            'anthos\\V1\\Rest\\Sources\\SourcesResource' => 'anthos\\V1\\Rest\\Sources\\SourcesResourceFactory',
         ),
     ),
     'router' => array(
@@ -26,12 +27,22 @@ return array(
                     ),
                 ),
             ),
+            'anthos.rest.sources' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/sources[/:sources_id]',
+                    'defaults' => array(
+                        'controller' => 'anthos\\V1\\Rest\\Sources\\Controller',
+                    ),
+                ),
+            ),
         ),
     ),
     'zf-versioning' => array(
         'uri' => array(
             0 => 'anthos.rest.plants',
             1 => 'anthos.rest.definitions',
+            2 => 'anthos.rest.sources',
         ),
     ),
     'zf-rest' => array(
@@ -79,11 +90,34 @@ return array(
             'collection_class' => 'anthos\\V1\\Rest\\Definitions\\DefinitionsCollection',
             'service_name' => 'definitions',
         ),
+        'anthos\\V1\\Rest\\Sources\\Controller' => array(
+            'listener' => 'anthos\\V1\\Rest\\Sources\\SourcesResource',
+            'route_name' => 'anthos.rest.sources',
+            'route_identifier_name' => 'sources_id',
+            'collection_name' => 'sources',
+            'entity_http_methods' => array(
+                0 => 'GET',
+                1 => 'PATCH',
+                2 => 'PUT',
+                3 => 'DELETE',
+            ),
+            'collection_http_methods' => array(
+                0 => 'GET',
+                1 => 'POST',
+            ),
+            'collection_query_whitelist' => array(),
+            'page_size' => 25,
+            'page_size_param' => null,
+            'entity_class' => 'anthos\\V1\\Rest\\Sources\\SourcesEntity',
+            'collection_class' => 'anthos\\V1\\Rest\\Sources\\SourcesCollection',
+            'service_name' => 'sources',
+        ),
     ),
     'zf-content-negotiation' => array(
         'controllers' => array(
             'anthos\\V1\\Rest\\Plants\\Controller' => 'HalJson',
             'anthos\\V1\\Rest\\Definitions\\Controller' => 'HalJson',
+            'anthos\\V1\\Rest\\Sources\\Controller' => 'HalJson',
         ),
         'accept_whitelist' => array(
             'anthos\\V1\\Rest\\Plants\\Controller' => array(
@@ -96,6 +130,11 @@ return array(
                 1 => 'application/hal+json',
                 2 => 'application/json',
             ),
+            'anthos\\V1\\Rest\\Sources\\Controller' => array(
+                0 => 'application/vnd.anthos.v1+json',
+                1 => 'application/hal+json',
+                2 => 'application/json',
+            ),
         ),
         'content_type_whitelist' => array(
             'anthos\\V1\\Rest\\Plants\\Controller' => array(
@@ -103,6 +142,10 @@ return array(
                 1 => 'application/json',
             ),
             'anthos\\V1\\Rest\\Definitions\\Controller' => array(
+                0 => 'application/vnd.anthos.v1+json',
+                1 => 'application/json',
+            ),
+            'anthos\\V1\\Rest\\Sources\\Controller' => array(
                 0 => 'application/vnd.anthos.v1+json',
                 1 => 'application/json',
             ),
@@ -134,6 +177,18 @@ return array(
                 'route_identifier_name' => 'definitions_id',
                 'is_collection' => true,
             ),
+            'anthos\\V1\\Rest\\Sources\\SourcesEntity' => array(
+                'entity_identifier_name' => 'id',
+                'route_name' => 'anthos.rest.sources',
+                'route_identifier_name' => 'sources_id',
+                'hydrator' => 'Zend\\Stdlib\\Hydrator\\ArraySerializable',
+            ),
+            'anthos\\V1\\Rest\\Sources\\SourcesCollection' => array(
+                'entity_identifier_name' => 'id',
+                'route_name' => 'anthos.rest.sources',
+                'route_identifier_name' => 'sources_id',
+                'is_collection' => true,
+            ),
         ),
     ),
     'zf-content-validation' => array(
@@ -142,6 +197,9 @@ return array(
         ),
         'anthos\\V1\\Rest\\Definitions\\Controller' => array(
             'input_filter' => 'anthos\\V1\\Rest\\Definitions\\Validator',
+        ),
+        'anthos\\V1\\Rest\\Sources\\Controller' => array(
+            'input_filter' => 'anthos\\V1\\Rest\\Sources\\Validator',
         ),
     ),
     'input_filter_specs' => array(
@@ -291,6 +349,98 @@ return array(
                         'name' => 'Zend\\I18n\\Validator\\DateTime',
                         'options' => array(
                             'breakchainonfailure' => '',
+                        ),
+                    ),
+                ),
+                'filters' => array(),
+                'name' => 'updated_at',
+                'description' => 'Timestamp indicating the time at which this record was last updated',
+            ),
+        ),
+        'anthos\\V1\\Rest\\Sources\\Validator' => array(
+            0 => array(
+                'required' => true,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'title',
+                'description' => 'Title of the source material',
+            ),
+            1 => array(
+                'required' => true,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'author',
+                'description' => 'Author of the source',
+            ),
+            2 => array(
+                'required' => false,
+                'validators' => array(
+                    0 => array(
+                        'name' => 'Zend\\I18n\\Validator\\DateTime',
+                        'options' => array(
+                            'breakchainonfailure' => true,
+                        ),
+                    ),
+                ),
+                'filters' => array(),
+                'name' => 'publication_date',
+                'description' => 'Date of the source\'s publication',
+                'continue_if_empty' => true,
+                'allow_empty' => true,
+            ),
+            3 => array(
+                'required' => false,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'publisher',
+                'description' => 'Name of the source\'s publisher',
+                'continue_if_empty' => true,
+                'allow_empty' => true,
+            ),
+            4 => array(
+                'required' => true,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'type',
+                'description' => 'Source type',
+            ),
+            5 => array(
+                'required' => false,
+                'validators' => array(
+                    0 => array(
+                        'name' => 'Zend\\I18n\\Validator\\DateTime',
+                        'options' => array(
+                            'breakchainonfailure' => true,
+                        ),
+                    ),
+                ),
+                'filters' => array(),
+                'name' => 'access_date',
+                'description' => 'Date source was accessed (if internet)',
+                'continue_if_empty' => true,
+                'allow_empty' => true,
+            ),
+            6 => array(
+                'required' => true,
+                'validators' => array(
+                    0 => array(
+                        'name' => 'Zend\\I18n\\Validator\\DateTime',
+                        'options' => array(
+                            'breakchainonfailure' => true,
+                        ),
+                    ),
+                ),
+                'filters' => array(),
+                'name' => 'created_at',
+                'description' => 'Timestamp indicating the time at which this record was created',
+            ),
+            7 => array(
+                'required' => true,
+                'validators' => array(
+                    0 => array(
+                        'name' => 'Zend\\I18n\\Validator\\DateTime',
+                        'options' => array(
+                            'breakchainonfailure' => true,
                         ),
                     ),
                 ),
