@@ -5,6 +5,8 @@ return array(
             'anthos\\V1\\Rest\\Plants\\PlantsResource' => 'anthos\\V1\\Rest\\Plants\\PlantsResourceFactory',
             'anthos\\V1\\Rest\\Definitions\\DefinitionsResource' => 'anthos\\V1\\Rest\\Definitions\\DefinitionsResourceFactory',
             'anthos\\V1\\Rest\\Sources\\SourcesResource' => 'anthos\\V1\\Rest\\Sources\\SourcesResourceFactory',
+            'anthos\\V1\\Rest\\Tags\\TagsResource' => 'anthos\\V1\\Rest\\Tags\\TagsResourceFactory',
+            'anthos\\V1\\Rest\\Scientific_names\\Scientific_namesResource' => 'anthos\\V1\\Rest\\Scientific_names\\Scientific_namesResourceFactory',
         ),
     ),
     'router' => array(
@@ -36,6 +38,24 @@ return array(
                     ),
                 ),
             ),
+            'anthos.rest.tags' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/tags[/:tags_id]',
+                    'defaults' => array(
+                        'controller' => 'anthos\\V1\\Rest\\Tags\\Controller',
+                    ),
+                ),
+            ),
+            'anthos.rest.scientific_names' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/scientific_names[/:scientific_names_id]',
+                    'defaults' => array(
+                        'controller' => 'anthos\\V1\\Rest\\Scientific_names\\Controller',
+                    ),
+                ),
+            ),
         ),
     ),
     'zf-versioning' => array(
@@ -43,6 +63,8 @@ return array(
             0 => 'anthos.rest.plants',
             1 => 'anthos.rest.definitions',
             2 => 'anthos.rest.sources',
+            3 => 'anthos.rest.tags',
+            4 => 'anthos.rest.scientific_names',
         ),
     ),
     'zf-rest' => array(
@@ -112,12 +134,58 @@ return array(
             'collection_class' => 'anthos\\V1\\Rest\\Sources\\SourcesCollection',
             'service_name' => 'sources',
         ),
+        'anthos\\V1\\Rest\\Tags\\Controller' => array(
+            'listener' => 'anthos\\V1\\Rest\\Tags\\TagsResource',
+            'route_name' => 'anthos.rest.tags',
+            'route_identifier_name' => 'tags_id',
+            'collection_name' => 'tags',
+            'entity_http_methods' => array(
+                0 => 'GET',
+                1 => 'PATCH',
+                2 => 'PUT',
+                3 => 'DELETE',
+            ),
+            'collection_http_methods' => array(
+                0 => 'GET',
+                1 => 'POST',
+            ),
+            'collection_query_whitelist' => array(),
+            'page_size' => 25,
+            'page_size_param' => null,
+            'entity_class' => 'anthos\\V1\\Rest\\Tags\\TagsEntity',
+            'collection_class' => 'anthos\\V1\\Rest\\Tags\\TagsCollection',
+            'service_name' => 'tags',
+        ),
+        'anthos\\V1\\Rest\\Scientific_names\\Controller' => array(
+            'listener' => 'anthos\\V1\\Rest\\Scientific_names\\Scientific_namesResource',
+            'route_name' => 'anthos.rest.scientific_names',
+            'route_identifier_name' => 'scientific_names_id',
+            'collection_name' => 'scientific_names',
+            'entity_http_methods' => array(
+                0 => 'GET',
+                1 => 'PATCH',
+                2 => 'PUT',
+                3 => 'DELETE',
+            ),
+            'collection_http_methods' => array(
+                0 => 'GET',
+                1 => 'POST',
+            ),
+            'collection_query_whitelist' => array(),
+            'page_size' => 25,
+            'page_size_param' => null,
+            'entity_class' => 'anthos\\V1\\Rest\\Scientific_names\\Scientific_namesEntity',
+            'collection_class' => 'anthos\\V1\\Rest\\Scientific_names\\Scientific_namesCollection',
+            'service_name' => 'scientific_names',
+        ),
     ),
     'zf-content-negotiation' => array(
         'controllers' => array(
             'anthos\\V1\\Rest\\Plants\\Controller' => 'HalJson',
             'anthos\\V1\\Rest\\Definitions\\Controller' => 'HalJson',
             'anthos\\V1\\Rest\\Sources\\Controller' => 'HalJson',
+            'anthos\\V1\\Rest\\Tags\\Controller' => 'HalJson',
+            'anthos\\V1\\Rest\\Scientific_names\\Controller' => 'HalJson',
         ),
         'accept_whitelist' => array(
             'anthos\\V1\\Rest\\Plants\\Controller' => array(
@@ -135,6 +203,16 @@ return array(
                 1 => 'application/hal+json',
                 2 => 'application/json',
             ),
+            'anthos\\V1\\Rest\\Tags\\Controller' => array(
+                0 => 'application/vnd.anthos.v1+json',
+                1 => 'application/hal+json',
+                2 => 'application/json',
+            ),
+            'anthos\\V1\\Rest\\Scientific_names\\Controller' => array(
+                0 => 'application/vnd.anthos.v1+json',
+                1 => 'application/hal+json',
+                2 => 'application/json',
+            ),
         ),
         'content_type_whitelist' => array(
             'anthos\\V1\\Rest\\Plants\\Controller' => array(
@@ -146,6 +224,14 @@ return array(
                 1 => 'application/json',
             ),
             'anthos\\V1\\Rest\\Sources\\Controller' => array(
+                0 => 'application/vnd.anthos.v1+json',
+                1 => 'application/json',
+            ),
+            'anthos\\V1\\Rest\\Tags\\Controller' => array(
+                0 => 'application/vnd.anthos.v1+json',
+                1 => 'application/json',
+            ),
+            'anthos\\V1\\Rest\\Scientific_names\\Controller' => array(
                 0 => 'application/vnd.anthos.v1+json',
                 1 => 'application/json',
             ),
@@ -189,6 +275,30 @@ return array(
                 'route_identifier_name' => 'sources_id',
                 'is_collection' => true,
             ),
+            'anthos\\V1\\Rest\\Tags\\TagsEntity' => array(
+                'entity_identifier_name' => 'id',
+                'route_name' => 'anthos.rest.tags',
+                'route_identifier_name' => 'tags_id',
+                'hydrator' => 'Zend\\Stdlib\\Hydrator\\ArraySerializable',
+            ),
+            'anthos\\V1\\Rest\\Tags\\TagsCollection' => array(
+                'entity_identifier_name' => 'id',
+                'route_name' => 'anthos.rest.tags',
+                'route_identifier_name' => 'tags_id',
+                'is_collection' => true,
+            ),
+            'anthos\\V1\\Rest\\Scientific_names\\Scientific_namesEntity' => array(
+                'entity_identifier_name' => 'id',
+                'route_name' => 'anthos.rest.scientific_names',
+                'route_identifier_name' => 'scientific_names_id',
+                'hydrator' => 'Zend\\Stdlib\\Hydrator\\ArraySerializable',
+            ),
+            'anthos\\V1\\Rest\\Scientific_names\\Scientific_namesCollection' => array(
+                'entity_identifier_name' => 'id',
+                'route_name' => 'anthos.rest.scientific_names',
+                'route_identifier_name' => 'scientific_names_id',
+                'is_collection' => true,
+            ),
         ),
     ),
     'zf-content-validation' => array(
@@ -200,6 +310,12 @@ return array(
         ),
         'anthos\\V1\\Rest\\Sources\\Controller' => array(
             'input_filter' => 'anthos\\V1\\Rest\\Sources\\Validator',
+        ),
+        'anthos\\V1\\Rest\\Tags\\Controller' => array(
+            'input_filter' => 'anthos\\V1\\Rest\\Tags\\Validator',
+        ),
+        'anthos\\V1\\Rest\\Scientific_names\\Controller' => array(
+            'input_filter' => 'anthos\\V1\\Rest\\Scientific_names\\Validator',
         ),
     ),
     'input_filter_specs' => array(
@@ -447,6 +563,144 @@ return array(
                 'filters' => array(),
                 'name' => 'updated_at',
                 'description' => 'Timestamp indicating the time at which this record was last updated',
+            ),
+        ),
+        'anthos\\V1\\Rest\\Tags\\Validator' => array(
+            0 => array(
+                'required' => true,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'tag',
+                'description' => 'Title of the tag',
+            ),
+            1 => array(
+                'required' => true,
+                'validators' => array(
+                    0 => array(
+                        'name' => 'Zend\\I18n\\Validator\\DateTime',
+                        'options' => array(
+                            'breakchainonfailure' => true,
+                        ),
+                    ),
+                ),
+                'filters' => array(),
+                'name' => 'created_at',
+                'description' => 'Timestamp indicating the time at which this record was created',
+            ),
+            2 => array(
+                'required' => true,
+                'validators' => array(
+                    0 => array(
+                        'name' => 'Zend\\I18n\\Validator\\DateTime',
+                        'options' => array(
+                            'breakchainonfailure' => true,
+                        ),
+                    ),
+                ),
+                'filters' => array(),
+                'name' => 'updated_at',
+                'description' => 'Timestamp indicating the time at which this record was created',
+            ),
+        ),
+        'anthos\\V1\\Rest\\Scientific_names\\Validator' => array(
+            0 => array(
+                'required' => true,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'kingdom',
+                'description' => 'Kingdom',
+            ),
+            1 => array(
+                'required' => false,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'phylum',
+                'description' => 'Phylum',
+                'continue_if_empty' => true,
+                'allow_empty' => true,
+            ),
+            2 => array(
+                'required' => false,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'class',
+                'description' => 'Class',
+                'continue_if_empty' => true,
+                'allow_empty' => true,
+            ),
+            3 => array(
+                'required' => false,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'order',
+                'description' => 'Order',
+                'continue_if_empty' => true,
+                'allow_empty' => true,
+            ),
+            4 => array(
+                'required' => false,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'family',
+                'description' => 'family',
+                'continue_if_empty' => true,
+                'allow_empty' => true,
+            ),
+            5 => array(
+                'required' => false,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'genus',
+                'description' => 'Genus',
+                'continue_if_empty' => true,
+                'allow_empty' => true,
+            ),
+            6 => array(
+                'required' => false,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'species',
+                'description' => 'Species',
+                'continue_if_empty' => true,
+                'allow_empty' => true,
+            ),
+            7 => array(
+                'required' => false,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'subspecies',
+                'description' => 'Subspecies',
+                'continue_if_empty' => true,
+                'allow_empty' => true,
+            ),
+            8 => array(
+                'required' => true,
+                'validators' => array(
+                    0 => array(
+                        'name' => 'Zend\\I18n\\Validator\\DateTime',
+                        'options' => array(
+                            'breakchainonfailure' => '',
+                        ),
+                    ),
+                ),
+                'filters' => array(),
+                'name' => 'created_at',
+                'description' => 'Timestamp indicating the time at which this record was created',
+                'continue_if_empty' => false,
+            ),
+            9 => array(
+                'required' => true,
+                'validators' => array(
+                    0 => array(
+                        'name' => 'Zend\\I18n\\Validator\\DateTime',
+                        'options' => array(
+                            'breakchainonfailure' => true,
+                        ),
+                    ),
+                ),
+                'filters' => array(),
+                'name' => 'updated_at',
+                'description' => 'Timestamp indicating the time at which this record was created',
             ),
         ),
     ),
