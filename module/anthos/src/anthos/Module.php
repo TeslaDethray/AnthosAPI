@@ -1,5 +1,5 @@
 <?php
-namespace Anthos;
+namespace anthos;
 
 use ZF\Apigility\Provider\ApigilityProviderInterface;
 

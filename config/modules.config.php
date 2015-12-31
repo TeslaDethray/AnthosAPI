@@ -21,5 +21,5 @@ return array(
     'ZF\\Rest',
     'ZF\\Rpc',
     'ZF\\Versioning',
-    'Anthos',
+    'anthos',
 );
