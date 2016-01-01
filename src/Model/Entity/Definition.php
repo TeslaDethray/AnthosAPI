@@ -4,24 +4,25 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Tag Entity.
+ * Definition Entity.
  *
  * @property int $id
- * @property string $tag
+ * @property string $definition
+ * @property string $subdefinition
  * @property \Cake\I18n\Time $created_at
  * @property \Cake\I18n\Time $updated_at
- * @property \App\Model\Entity\Bouquet[] $bouquets
- * @property \App\Model\Entity\Definition[] $definitions
- * @property \App\Model\Entity\Plant[] $plants
+ * @property \App\Model\Entity\Attribution[] $attributions
+ * @property \App\Model\Entity\Tag[] $tags
  */
-class Tag extends Entity {
+class Definition extends Entity {
 
   /**
    * Fields that can be mass assigned using newEntity() or patchEntity().
    *
    * Note that when '*' is set to true, this allows all unspecified fields to
    * be mass assigned. For security purposes, it is advised to set '*' to false
-   * (or remove it), and explicitly make individual fields accessible as needed.
+   * (or remove it), and explicitly make individual fields accessible as
+   * needed.
    *
    * @var array
    */

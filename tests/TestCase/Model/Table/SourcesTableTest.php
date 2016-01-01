@@ -26,10 +26,10 @@ class SourcesTableTest extends TestCase
      *
      * @return void
      */
-    public function setUp()
-    {
+    public function setUp() {
+
         parent::setUp();
-        $config = TableRegistry::exists('Sources') ? [] : ['className' => 'App\Model\Table\SourcesTable'];
+        $config        = TableRegistry::exists('Sources') ? [] : ['className' => 'App\Model\Table\SourcesTable'];
         $this->Sources = TableRegistry::get('Sources', $config);
     }
 
@@ -38,8 +38,8 @@ class SourcesTableTest extends TestCase
      *
      * @return void
      */
-    public function tearDown()
-    {
+    public function tearDown() {
+
         unset($this->Sources);
 
         parent::tearDown();
@@ -50,8 +50,8 @@ class SourcesTableTest extends TestCase
      *
      * @return void
      */
-    public function testInitialize()
-    {
+    public function testInitialize() {
+
         $this->markTestIncomplete('Not implemented yet.');
     }
 
@@ -60,8 +60,9 @@ class SourcesTableTest extends TestCase
      *
      * @return void
      */
-    public function testValidationDefault()
-    {
+    public function testValidationDefault() {
+
         $this->markTestIncomplete('Not implemented yet.');
     }
+
 }

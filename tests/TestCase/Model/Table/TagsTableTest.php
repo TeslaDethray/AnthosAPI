@@ -34,10 +34,10 @@ class TagsTableTest extends TestCase
      *
      * @return void
      */
-    public function setUp()
-    {
+    public function setUp() {
+
         parent::setUp();
-        $config = TableRegistry::exists('Tags') ? [] : ['className' => 'App\Model\Table\TagsTable'];
+        $config     = TableRegistry::exists('Tags') ? [] : ['className' => 'App\Model\Table\TagsTable'];
         $this->Tags = TableRegistry::get('Tags', $config);
     }
 
@@ -46,8 +46,8 @@ class TagsTableTest extends TestCase
      *
      * @return void
      */
-    public function tearDown()
-    {
+    public function tearDown() {
+
         unset($this->Tags);
 
         parent::tearDown();
@@ -58,8 +58,8 @@ class TagsTableTest extends TestCase
      *
      * @return void
      */
-    public function testInitialize()
-    {
+    public function testInitialize() {
+
         $this->markTestIncomplete('Not implemented yet.');
     }
 
@@ -68,8 +68,9 @@ class TagsTableTest extends TestCase
      *
      * @return void
      */
-    public function testValidationDefault()
-    {
+    public function testValidationDefault() {
+
         $this->markTestIncomplete('Not implemented yet.');
     }
+
 }

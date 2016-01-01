@@ -1,18 +1,19 @@
 <?php
 namespace App\Model\Table;
 
-use App\Model\Entity\Source;
+use App\Model\Entity\Definition;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Sources Model
+ * Definitions Model
  *
  * @property \Cake\ORM\Association\HasMany $Attributions
+ * @property \Cake\ORM\Association\BelongsToMany $Tags
  */
-class SourcesTable extends Table {
+class DefinitionsTable extends Table {
 
   /**
     * Initialize method
@@ -23,13 +24,21 @@ class SourcesTable extends Table {
   public function initialize(array $config) {
     parent::initialize($config);
 
-    $this->table('sources');
-    $this->displayField('name');
+    $this->table('definitions');
+    $this->displayField('id');
     $this->primaryKey('id');
 
     $this->hasMany(
       'Attributions',
-      ['foreignKey' => 'source_id']
+      ['foreignKey' => 'definition_id']
+    );
+    $this->belongsToMany(
+      'Tags',
+      [
+        'foreignKey' => 'definition_id',
+        'targetForeignKey' => 'tag_id',
+        'joinTable' => 'definitions_tags'
+      ]
     );
   }
 
@@ -46,7 +55,9 @@ class SourcesTable extends Table {
       ['rule' => 'numeric']
     )->allowEmpty('id', 'create');
 
-    $validator->allowEmpty('name');
+    $validator->allowEmpty('definition');
+
+    $validator->allowEmpty('subdefinition');
 
     $validator->add(
       'created_at',

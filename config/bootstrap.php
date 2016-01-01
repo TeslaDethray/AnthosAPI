@@ -122,14 +122,14 @@ if ($isCli) {
  */
 if (!Configure::read('App.fullBaseUrl')) {
     $s = null;
-    if (env('HTTPS')) {
-        $s = 's';
-    }
+  if (env('HTTPS')) {
+      $s = 's';
+  }
 
     $httpHost = env('HTTP_HOST');
-    if (isset($httpHost)) {
-        Configure::write('App.fullBaseUrl', 'http' . $s . '://' . $httpHost);
-    }
+  if (isset($httpHost)) {
+      Configure::write('App.fullBaseUrl', 'http' . $s . '://' . $httpHost);
+  }
     unset($httpHost, $s);
 }
 
@@ -150,14 +150,18 @@ Security::salt(Configure::consume('Security.salt'));
 /**
  * Setup detectors for mobile and tablet.
  */
-Request::addDetector('mobile', function ($request) {
+Request::addDetector(
+  'mobile', function ($request) {
     $detector = new \Detection\MobileDetect();
     return $detector->isMobile();
-});
-Request::addDetector('tablet', function ($request) {
+  }
+);
+Request::addDetector(
+  'tablet', function ($request) {
     $detector = new \Detection\MobileDetect();
     return $detector->isTablet();
-});
+  }
+);
 
 /**
  * Custom Inflector rules, can be set to correctly pluralize or singularize

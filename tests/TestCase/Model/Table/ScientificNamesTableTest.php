@@ -31,8 +31,8 @@ class ScientificNamesTableTest extends TestCase
      *
      * @return void
      */
-    public function setUp()
-    {
+    public function setUp() {
+
         parent::setUp();
         $config = TableRegistry::exists('ScientificNames') ? [] : ['className' => 'App\Model\Table\ScientificNamesTable'];
         $this->ScientificNames = TableRegistry::get('ScientificNames', $config);
@@ -43,8 +43,8 @@ class ScientificNamesTableTest extends TestCase
      *
      * @return void
      */
-    public function tearDown()
-    {
+    public function tearDown() {
+
         unset($this->ScientificNames);
 
         parent::tearDown();
@@ -55,8 +55,8 @@ class ScientificNamesTableTest extends TestCase
      *
      * @return void
      */
-    public function testInitialize()
-    {
+    public function testInitialize() {
+
         $this->markTestIncomplete('Not implemented yet.');
     }
 
@@ -65,8 +65,9 @@ class ScientificNamesTableTest extends TestCase
      *
      * @return void
      */
-    public function testValidationDefault()
-    {
+    public function testValidationDefault() {
+
         $this->markTestIncomplete('Not implemented yet.');
     }
+
 }

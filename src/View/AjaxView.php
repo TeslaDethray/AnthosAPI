@@ -7,7 +7,8 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @copyright     Copyright (c) Cake Software Foundation, Inc.
+ *   (http://cakefoundation.org)
  * @link          http://cakephp.org CakePHP(tm) Project
  * @since         3.0.4
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
@@ -26,24 +27,23 @@ use Cake\Network\Response;
 class AjaxView extends AppView
 {
 
-    /**
-     * The name of the layout file to render the view inside of. The name
-     * specified is the filename of the layout in /app/Template/Layout without
-     * the .ctp extension.
-     *
-     * @var string
-     */
-    public $layout = 'ajax';
+  /**
+   * The name of the layout file to render the view inside of. The name
+   * specified is the filename of the layout in /app/Template/Layout without
+   * the .ctp extension.
+   *
+   * @var string
+   */
+  public $layout = 'ajax';
 
-    /**
-     * Initialization hook method.
-     *
-     * @return void
-     */
-    public function initialize()
-    {
-        parent::initialize();
+  /**
+   * Initialization hook method.
+   *
+   * @return void
+   */
+  public function initialize() {
+    parent::initialize();
+    $this->response->type('ajax');
+  }
 
-        $this->response->type('ajax');
-    }
 }

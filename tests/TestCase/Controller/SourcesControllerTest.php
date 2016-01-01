@@ -25,8 +25,8 @@ class SourcesControllerTest extends IntegrationTestCase
      *
      * @return void
      */
-    public function testIndex()
-    {
+    public function testIndex() {
+
         $this->markTestIncomplete('Not implemented yet.');
     }
 
@@ -35,8 +35,8 @@ class SourcesControllerTest extends IntegrationTestCase
      *
      * @return void
      */
-    public function testView()
-    {
+    public function testView() {
+
         $this->markTestIncomplete('Not implemented yet.');
     }
 
@@ -45,8 +45,8 @@ class SourcesControllerTest extends IntegrationTestCase
      *
      * @return void
      */
-    public function testAdd()
-    {
+    public function testAdd() {
+
         $this->markTestIncomplete('Not implemented yet.');
     }
 
@@ -55,8 +55,8 @@ class SourcesControllerTest extends IntegrationTestCase
      *
      * @return void
      */
-    public function testEdit()
-    {
+    public function testEdit() {
+
         $this->markTestIncomplete('Not implemented yet.');
     }
 
@@ -65,8 +65,9 @@ class SourcesControllerTest extends IntegrationTestCase
      *
      * @return void
      */
-    public function testDelete()
-    {
+    public function testDelete() {
+
         $this->markTestIncomplete('Not implemented yet.');
     }
+
 }
