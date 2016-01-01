@@ -33,7 +33,7 @@
                 <td><?= h($plant->color) ?></td>
                 <td><?= h($plant->type) ?></td>
                 <td><?= h($plant->variety) ?></td>
-                <td><?= $this->Number->format($plant->seasonality) ?></td>
+                <td><?= $this->Binary->toBinary($plant->seasonality) ?></td>
                 <td><?= $this->Number->format($plant->vase_life) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $plant->id]) ?>

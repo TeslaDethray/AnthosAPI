@@ -9,6 +9,23 @@ use App\Controller\AppController;
  * @property \App\Model\Table\PlantsTable $Plants
  */
 class PlantsController extends AppController {
+  public $paginate = [
+    'order' => ['Plants.common_name' => 'asc']
+  ];
+
+  /**
+   * Initialization hook method.
+   *
+   * Use this method to add common initialization code like loading components.
+   *
+   * e.g. `$this->loadComponent('Security');`
+   *
+   * @return void
+   */
+  public function initialize() {
+    parent::initialize();
+    $this->loadComponent('RequestHandler');
+  }
 
   /**
     * Index method
