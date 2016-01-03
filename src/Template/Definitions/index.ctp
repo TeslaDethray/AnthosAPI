@@ -13,18 +13,16 @@
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th><?= $this->Paginator->sort('id') ?></th>
-                <th><?= $this->Paginator->sort('created_at') ?></th>
-                <th><?= $this->Paginator->sort('updated_at') ?></th>
+                <th><?= $this->Paginator->sort('definition') ?></th>
+                <th><?= $this->Paginator->sort('subdefinition') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($definitions as $definition): ?>
             <tr>
-                <td><?= $this->Number->format($definition->id) ?></td>
-                <td><?= h($definition->created_at) ?></td>
-                <td><?= h($definition->updated_at) ?></td>
+                <td><?= __($definition->definition) ?></td>
+                <td><?= __($definition->subdefinition) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $definition->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $definition->id]) ?>

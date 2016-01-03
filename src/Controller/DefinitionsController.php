@@ -9,6 +9,12 @@ use App\Controller\AppController;
  * @property \App\Model\Table\DefinitionsTable $Definitions
  */
 class DefinitionsController extends AppController {
+  public $paginate = [
+    'order' => [
+      'Definitions.definition' => 'asc',
+      'Definitions.subdefinition' => 'asc',
+    ]
+  ];
 
   /**
     * Index method
