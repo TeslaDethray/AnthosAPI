@@ -11,20 +11,14 @@
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th><?= $this->Paginator->sort('id') ?></th>
                 <th><?= $this->Paginator->sort('name') ?></th>
-                <th><?= $this->Paginator->sort('created_at') ?></th>
-                <th><?= $this->Paginator->sort('updated_at') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($sources as $source): ?>
             <tr>
-                <td><?= $this->Number->format($source->id) ?></td>
                 <td><?= h($source->name) ?></td>
-                <td><?= h($source->created_at) ?></td>
-                <td><?= h($source->updated_at) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $source->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $source->id]) ?>
