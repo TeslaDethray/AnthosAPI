@@ -27,7 +27,7 @@ class PlantsTable extends Table {
     parent::initialize($config);
 
     $this->table('plants');
-    $this->displayField('id');
+    $this->displayField('common_name');
     $this->primaryKey('id');
 
     $this->belongsTo(
