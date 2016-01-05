@@ -25,7 +25,7 @@ class DefinitionsTable extends Table {
     parent::initialize($config);
 
     $this->table('definitions');
-    $this->displayField('id');
+    $this->displayField('definition');
     $this->primaryKey('id');
 
     $this->hasMany(
